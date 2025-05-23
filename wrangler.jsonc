@@ -1,0 +1,75 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "compute-example",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-03",
+	"migrations": [
+		{
+			"new_sqlite_classes": [
+				"MyContainerSmall",
+				"MyContainerMedium",
+				"MyContainerLarge",
+				"MyContainerManager"
+			],
+			"tag": "v1"
+		}
+	],
+	"containers": [
+		{
+		"name": "small",
+		"image": "./Dockerfile",
+		"max_instances": 5,
+		"configuration" : {
+			"vcpu": 1,
+			"memory": "1GB"
+		},
+		"class_name": "MyContainerSmall"
+
+	},
+		{
+		"name": "medium",
+		"image": "./Dockerfile",
+		"max_instances": 5,
+		"configuration" : {
+			"vcpu": 2,
+			"memory": "2GB"
+		},
+		"class_name": "MyContainerMedium"
+
+	},
+		{
+		"name": "large",
+		"image": "./Dockerfile",
+		"max_instances": 5,
+		"configuration" : {
+			"vcpu": 3,
+			"memory": "3GB"
+		},
+		"class_name": "MyContainerLarge"
+
+	}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "MyContainerSmall",
+				"name": "CONTAINER_SMALL"
+			},
+			{
+				"class_name": "MyContainerMedium",
+				"name": "CONTAINER_MEDIUM"
+			},
+			{
+				"class_name": "MyContainerLarge",
+				"name": "CONTAINER_LARGE"
+			},
+			{
+				"class_name": "MyContainerManager",
+				"name": "CONTAINER_MANAGER"
+			}
+		]
+	},
+	"observability": {
+		"enabled": true
+	}
+}
